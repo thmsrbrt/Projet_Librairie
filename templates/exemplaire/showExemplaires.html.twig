@@ -1,0 +1,57 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row" >
+        {% for oeuvre in oeuvres %}
+            <a href="{{ path('exemplaire_creerExemplaire', {noOeuvre: oeuvre.id}) }}"> Ajouter un exemplaire </a>
+
+            <h4>
+                information sur l'oeuvre :
+                titre : <strong style="color:green">{{ oeuvre.titre }}</strong>,
+                auteur : <strong style="color:green">{{ oeuvre.nomAuteur }}</strong>,
+                dateParution : <strong style="color:green">{{ oeuvre.dateParution | date('d-m-Y') }}</strong><br>
+            </h4>
+            <h2>
+                informations :
+                nombre d'exemplaire(s) : {{ oeuvre.nbExemplaire }},
+                présent(s) : {{ oeuvre.nombreDispo }}<br>
+            </h2>
+
+            <table border="2">
+                <caption>Recapitulatif des Exemplaires</caption>
+                <thead>
+                <tr><th>N° exemplaire</th><th>etat</th><th>date Achat</th><th>prix</th><th>opérations</th></tr>
+                </thead>
+                <tbody>
+                {%  if oeuvre.nbExemplaire != 0 %}
+                    {% for exemplaire in exemplaires %}
+                        <tr {% if exemplaire.nombreDispo == 1 %}style="background-color:limegreen;" {% endif %}>
+                            <td>
+                                {{ exemplaire.noExemplaire }} {% if exemplaire.nombreDispo == 1 %} (Présent) {% else %} (Absent) {% endif %}
+                            </td>
+                            <td>
+                                {{ exemplaire.etat }}
+                            </td>
+                            <td>
+                                {{ exemplaire.date_achat | date('d-m-Y') }}
+                            </td>
+                            <td>
+                                {{ exemplaire.prix }}
+                            </td>
+                            <td>
+                                {#  <a href="/auteur/modifierAuteur/{{ auteur.id }}">Essai Modifier</a>  #}
+                                <a href="{{ path('exemplaire_modifierExemplaire', {noExemplaire: exemplaire.noExemplaire}) }}">modifier</a>
+                                <a href="{{ path('exemplaire_supprimerExemplaire', {noExemplaire: exemplaire.noExemplaire}) }}">supprimer</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td> pas d'exemplaires dans la base de donnée</td>
+                    </tr>
+                {% endif %}
+                <tbody>
+            </table>
+        {% endfor %}
+    </div>
+{% endblock %}

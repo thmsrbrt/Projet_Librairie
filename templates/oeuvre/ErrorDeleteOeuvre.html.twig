@@ -1,0 +1,12 @@
+{% extends "layout.html.twig" %}
+
+
+{% block content %}
+    <div class="container">
+
+        Il faut supprimer <strong>{{ nombre }}</strong> enregistrement(s) dans la table EXEMPLAIRE avant de supprimer cet Oeuvre.
+        <br>
+        <a href="{{ path('oeuvre_afficherOeuvres') }}">annuler</a>
+    </div>
+
+{% endblock %}

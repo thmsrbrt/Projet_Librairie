@@ -1,0 +1,35 @@
+{% extends "layout.html.twig" %}
+
+
+{% block content %}
+    <div class="row ">
+        <form action="{{ path('adherent_validFormCreerAdherent') }}" method="post">
+            <fieldset>
+                <legend>Creer un adhérent</legend>
+
+                <label >Nom
+                    <input type="text" name="nom" size="18" value="{{ donnees.nom | default('') }}">
+                </label>
+                {% if erreurs.nom is defined %}
+                    <small class="error">{{ erreurs.nom }}</small>
+                {% endif %}
+
+                <label >Adressed
+                    <input type="text" name="adresse" size="18" value="{{ donnees.adresse | default('') }}">
+                </label>
+                {% if erreurs.adresse is defined %}
+                    <small class="error">{{ erreurs.adresse }}</small>
+                {% endif %}
+
+                <label >Date paiement
+                    <input type="text" name="datePaiement" size="18" value="{{ donnees.datePaiement | default('') }}">
+                </label>
+                {% if erreurs.datePaiement is defined %}
+                    <small class="error">{{ erreurs.datePaiement }}</small>
+                {% endif %}
+
+                <input type="submit" name="validerForm" value="valider">
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

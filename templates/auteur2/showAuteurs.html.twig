@@ -1,0 +1,41 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <div class="row" > auteur2 <br>
+        <!--template/auteur/showAuteurs.html.twig-->
+        {#    {{ dump(auteurs) }}#}
+        <a href="/auteur2/creerAuteur"> Ajouter un Auteur </a><br>
+        <a href="{{ path('auteur2_creerAuteur') }}"> Ajouter un Auteur </a>
+        <table border="2">
+            <caption>Recapitulatif des Auteurs</caption>
+            <thead>
+            <tr><th>nom</th><th>prenom</th><th>nombre d'oeuvres</th><th>opérations</th></tr>
+            </thead>
+            <tbody>
+            {%  if auteurs is not empty %}
+                {% for auteur in auteurs %}
+                    <tr><td>
+                            {{ auteur.nom }}
+                        </td><td>
+                            {{ auteur.prenom }}
+                        </td><td>
+                            {{ auteur.nbrOeuvre }}
+                        </td>
+                        <td>
+                            {#  <a href="/auteur2/modifierAuteur/{{ auteur.id }}">Essai Modifier</a>  #}
+                            <a href="{{ path('auteur2_modifierAuteur', {id: auteur.id}) }}">modifier</a>
+                            <a href="{{ path('auteur2_supprimerAuteur', {id: auteur.id}) }}">supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td> pas d'auteur dans la base de données</td>
+                </tr>
+            {% endif %}
+            <tbody>
+        </table>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row" >
+        <form method="post" action="{{ path('exemplaire_validFormCreerExemplaire') }}">
+            <fieldset>
+                <legend>Ajouter un exemplaire</legend>
+                {% for oeuvre in oeuvres %}
+                    <h4>
+                        Titre : <strong style="color:red">{{ oeuvre.titre }}</strong>,
+                        Auteur : <strong style="color:darkviolet">{{ oeuvre.nomAuteur }}</strong>
+                    </h4>
+
+                    <input name="idOeuvre" type="hidden" value="{{ oeuvre.id }}">
+
+                    <p>Etat <br>
+                        <input type="radio" name="etat" value="NEUF" {% if exemplaires.etat is not defined or exemplaires.etat == 'NEUF' %} checked {% endif %}>
+                        <label>NEUF</label>
+                        <input type="radio" name="etat" value="BON" {% if exemplaires.etat is defined and exemplaires.etat == 'BON' %} checked {% endif %}>
+                        <label>BON</label>
+                        <input type="radio" name="etat" value="MOYEN" {% if exemplaires.etat is defined and exemplaires.etat == 'MOYEN' %} checked {% endif %}>
+                        <label>MOYEN</label>
+                        <input type="radio" name="etat" value="MAUVAIS" {% if exemplaires.etat is defined and exemplaires.etat == 'MAUVAIS' %} checked {% endif %}>
+                        <label>MAUVAIS</label>
+                    </p>
+
+                    <label>Date Achat</label>
+                    <input type="text" name="date_achat" value="{{ exemplaires.date_achat | default('') }}">
+                    {% if erreurs.date_achat is defined %}
+                        <small class="error">{{ erreurs.date_achat }}</small>
+                    {% endif %}
+
+                    <label>Prix</label>
+                    <input type="text" name="prix" value="{{ exemplaires.prix | default('') }}">
+                    {% if erreurs.prix is defined %}
+                        <small class="error">{{ erreurs.prix }}</small>
+                    {% endif %}
+
+                    <input type="submit" name="validerForm" value="Valider">
+
+                {% endfor %}
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <div class="row">
+        <a href="{{ path('adherent_afficherAdherents') }}">annuler</a><br>
+        Il faut supprimer <strong>{{ nombre }}</strong> enregistrement(s) dans la table
+        EMPRUNT avant de supprimer cet Adhérent.
+    </div>
+
+{% endblock %}

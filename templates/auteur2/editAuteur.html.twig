@@ -1,0 +1,27 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <div class="row "> auteur2 <br>
+        {#    {{ dump(donnees) }}#}
+        <form method="post" action="{{ path('auteur2_validFormModifierAuteur') }}">
+            <fieldset>
+                <legend>Modifier un Auteur</legend>
+
+                <input name="id"  type="hidden" value="{{ donnees.id }}"/>
+
+                <label>Nom
+                    <input name="nom"  type="text"  size="18" value="{{ donnees.nom }}"/>
+                </label>
+                {% if erreurs.nom is defined %}
+                    <small class="error">{{erreurs.nom}}</small>
+                {% endif %}
+
+                <label>Prénom</label>
+                <input name="prenom"  type="text"  size="18" value="{{ donnees.prenom }}"/>
+                <input type="submit" name="validerForm" value="valider" />
+            </fieldset>
+        </form>
+    </div>
+
+{% endblock %}

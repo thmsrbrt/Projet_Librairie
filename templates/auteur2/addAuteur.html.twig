@@ -1,0 +1,24 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row ">auteur2 <br>
+        template/auteur2/addAuteur.html.twig
+        <form method="post" action="{{ path('auteur2_validFormCreerAuteur') }}">
+            <fieldset>
+                <legend>Ajouter un Auteur</legend>
+
+                <label>Nom
+                    <input name="nom"  type="text"  size="18" value="{{ donnees.nom | default('') }}"/>
+                </label>
+                {% if erreurs.nom is defined %}
+                    <small class="error">{{erreurs.nom}}</small>
+                {% endif %}
+
+                <label>Prénom</label>
+                <input name="prenom"  type="text"  size="18" value="{{ donnees.prenom | default('') }}"/>
+
+                <input type="submit" name="validerForm" value="valider" />
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

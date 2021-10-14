@@ -1,0 +1,50 @@
+{% extends "layout.html.twig" %}
+
+
+{% block content %}
+    <div class="row">
+        <form action="{{ path('oeuvre_validFormCreerOeuvre') }}" method="post">
+            <fieldset>
+                <legend>Creer une oeuvre</legend>
+                <label>Titre
+                    <input type="text" name="titre" size="18" value="{{ donnees.titre | default('') }}">
+                </label>
+                {% if erreurs.titre is defined %}
+                    <small class="error">{{ erreurs.titre }}</small>
+                {% endif %}
+
+                <label>Date de parution
+                    <input type="text" size="18" name="dateParution" value="{{ donnees.dateParution | default('') }}">
+                </label>
+                {% if erreurs.dateParution is defined %}
+                    <small class="error">{{ erreurs.dateParution }}</small>
+                {% endif %}
+
+                <label>Nom de l'auteur
+                    <select name="idAuteur">
+                        {% if  donnees.idAuteur is not defined or donnees.idAuteur is empty   %}
+                            <option value="">Saisir une valeur</option>
+                            {% endif %}
+                            {% for auteur in donneesAuteur %}
+                                <option value="{{ auteur.id }}"
+                                        {% if donnees.idAuteur is defined and auteur.id == donnees.idAuteur %}selected{% endif %}>
+                                    {{ auteur.nom }}
+                                </option>
+                            {% endfor %}
+                    </select>
+                    {% if erreurs.idAuteur is defined %}
+                        <small class="error">{{ erreurs.idAuteur }}</small>
+                    {% endif %}
+                </label>
+
+                <label>Photo
+                    <input type="text" name="photo", size="18" value="{{ donnees.photo | default ('') }}">
+                </label>
+                {% if erreurs.photo is defined %}
+                <small class="error">{{ erreurs.photo }}</small>
+                {% endif %}
+                <input type="submit" name="valideForm" value="valider"/>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

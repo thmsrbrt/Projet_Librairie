@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>projet S2 20</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/foundation.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}" />
+    <script src="{{ asset('assets/js/vendor/modernizr.js') }}"></script>
+</head>
+<body>
+{% include('_menu.html.twig') %}
+{{ controller_name | default('')}}
+<br>
+<div class="grid-container grid-container-padded">
+    <div class="grid-x grid-margin-x">
+        <div class="large-12 cell">
+            {% block content %}
+                <h1> projet biblio</h1>
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+<script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
+<script src="{{ asset('assets/js/foundation.min.js') }}"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+</html>

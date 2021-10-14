@@ -1,0 +1,64 @@
+DROP TABLE IF EXISTS  EMPRUNT, EXEMPLAIRE , OEUVRE, AUTEUR, ADHERENT   ;
+
+CREATE TABLE ADHERENT(
+    id INT AUTO_INCREMENT,
+    nom VARCHAR(255),
+    adresse VARCHAR(255),
+    date_paiement DATE,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE AUTEUR(
+   id INT AUTO_INCREMENT,
+   nom VARCHAR(255),
+   prenom VARCHAR(255),
+   PRIMARY KEY(id)
+);
+
+CREATE TABLE OEUVRE(
+   id INT AUTO_INCREMENT,
+   titre VARCHAR(255) NOT NULL,
+   date_parution DATE,
+   photo VARCHAR(255),
+   auteur_id INT,
+   PRIMARY KEY(id),
+   CONSTRAINT fk_OEUVRE_AUTEUR FOREIGN KEY(auteur_id) REFERENCES AUTEUR(id)
+);
+
+CREATE TABLE EXEMPLAIRE(
+   id INT AUTO_INCREMENT,
+   etat VARCHAR(50),
+   date_achat DATE,
+   prix INT,
+   oeuvre_id INT NOT NULL,
+   PRIMARY KEY(id),
+   Constraint fk_EXEMPLAIRE_OEUVRE FOREIGN KEY(oeuvre_id) REFERENCES OEUVRE(id)
+);
+
+CREATE TABLE EMPRUNT(
+    adherent_id INT,
+    exemplaire_id INT,
+    date_emprunt DATE,
+    date_retour DATE,
+    PRIMARY KEY(adherent_id, exemplaire_id),
+    Constraint fk_EMPRUNT_ADHERENT FOREIGN KEY(adherent_id) REFERENCES ADHERENT(id),
+    Constraint fk_EMPRUNT_EXEMPLAIRE FOREIGN KEY(exemplaire_id) REFERENCES EXEMPLAIRE(id)
+);
+
+LOAD DATA LOCAL INFILE 'bdd/ADHERENT.csv' INTO TABLE ADHERENT character set utf8
+FIELDS TERMINATED BY ',';
+
+LOAD DATA LOCAL INFILE 'bdd/AUTEUR.csv' INTO TABLE AUTEUR character set utf8
+FIELDS TERMINATED BY ',';
+
+LOAD DATA LOCAL INFILE 'bdd/OEUVRE.csv' INTO TABLE OEUVRE character set utf8
+FIELDS TERMINATED BY ',';
+
+LOAD DATA LOCAL INFILE 'bdd/EXEMPLAIRE.csv' INTO TABLE EXEMPLAIRE character set utf8
+FIELDS TERMINATED BY ',';
+
+LOAD DATA LOCAL INFILE 'bdd/EMPRUNT.csv' INTO TABLE EMPRUNT character set utf8
+FIELDS TERMINATED BY ',';
+
+UPDATE EMPRUNT SET date_retour = NULL WHERE CAST(date_retour AS CHAR(10))='0000-00-00';
+UPDATE OEUVRE SET date_parution = NULL WHERE CAST(date_parution AS CHAR(10))='0000-00-00';

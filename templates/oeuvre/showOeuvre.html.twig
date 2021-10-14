@@ -1,0 +1,54 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row" >
+        showOeuvre.html.twig <br>
+        <a href="{{ path('oeuvre_creerOeuvre') }}">Créer une oeuvre</a>
+        <table border="2">
+            <caption>récapitulatif des oeuvres</caption>
+            <thead>
+                <tr>
+                    <th>nom de l'auteur</th>
+                    <th>titre</th>
+                    <th>date de parution</th>
+                    <th>Nbr.</th>
+                    <th>Nbr. dispo</th>
+                    <th>photo</th>
+                    <th>Exemplaires</th>
+                    <th>Opérations</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% if oeuvres is not empty %}
+                {% for oeuvre in oeuvres %}
+                    <tr>
+                        <td>{{ oeuvre.nom }}</td>
+                        <td>{{ oeuvre.titre }}</td>
+                        <td>{{ oeuvre.dateParution }}</td>
+                        <td>{{ oeuvre.nbExemplaire }}</td>
+                        <td>{{ oeuvre.nombreDispo }}</td>
+                        <td>
+                            {% if oeuvre.photo is not empty %}
+                                <img src="{{ asset('assets/images/') }}{{ oeuvre.photo }}" alt="image de {{ oeuvre.titre }}" style="width: 40px;">
+                            {% else %}
+                                <img src="{{ asset('assets/images/no_photo.jpeg') }}" alt="pas de photo" style=" width: 40px;">
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ path('exemplaire_afficherExemplaires', {noOeuvre: oeuvre.id}) }}">Gérer les Exemplaires</a>
+                        </td>
+                        <td>
+                            <a href="{{ path('oeuvre_modifierOeuvre', {id: oeuvre.id}) }}">modifier</a>
+                            <a href="{{ path('oeuvre_supprimerOeuvre', {id: oeuvre.id}) }}">supprimer</a>
+                        </td>
+                    </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td>Pas d'oeuvre dans la base de données</td>
+            </tr>
+            {%  endif %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

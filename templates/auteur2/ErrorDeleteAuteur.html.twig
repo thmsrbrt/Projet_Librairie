@@ -1,0 +1,13 @@
+{% extends "layout.html.twig" %}
+
+
+{% block content %}
+
+    <div class="row"> auteur2 <br>
+        il faut supprimer  <strong>{{ nombre }} </strong> enregistrements dans la table OEUVRE avant de supprimer cet Auteur
+        <br> (et peut être dans la table des enregistrements dans les tables EXEMPLAIRE et EMPRUNT)
+        <br>
+    </div>
+    <a href="{{ path('auteur2_afficherAuteurs') }}">annuler</a>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row">
+        il faut supprimer  <strong>{{ nombre }} </strong> enregistrements dans la table EMPRUNT avant de supprimer cet EXEMPLAIRE
+        <br>
+    </div>
+    <a href="{{ url('exemplaire_afficherExemplaires',{'noOeuvre': noOeuvre }) }}">annuler</a>
+{% endblock %}

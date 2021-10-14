@@ -1,0 +1,60 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+
+    <div class="row">
+        <form action="{{ path('oeuvre_validFormModifierOeuvre') }}" method="post">
+            <fieldset>
+                <legend>Modifier une Oeuvre</legend>
+
+                <input type="hidden" name="id" value="{{ donnees.id }}">
+
+                <label>Titre
+                    <input type="text" name="titre" size="18" value="{{ donnees.titre }}">
+                </label>
+                {% if erreurs.titre is defined %}
+                    <small class="error">{{ erreurs.titre }}</small>
+                {% endif %}
+
+                <label>Date de parution
+                    <input type="text" name="dateParution" size="18" value="{{ donnees.dateParution }}">
+                </label>
+                {% if erreurs.dateParution is defined %}
+                    <small class="error">{{ erreurs.dateParution }}</small>
+                {% endif %}
+
+                <label>Nom de l'auteur
+                    <select name="idAuteur">
+                        {% if  donnees.idAuteur is not defined or donnees.idAuteur is empty   %}
+                            <option value="">Saisir une valeur</option>
+                        {% endif %}
+                        {% for auteur in donneesAuteur %}
+                            <option value="{{ auteur.id }}"
+                                    {% if donnees.idAuteur is defined and auteur.id == donnees.idAuteur %}selected{% endif %}>
+                                {{ auteur.nom }}
+                            </option>
+                        {% endfor %}
+                        {% if erreurs.idAuteur is defined %}
+                            <small class="error">{{ erreurs.idAuteur }}</small>
+                        {% endif %}
+                    </select>
+                </label>
+
+                <label>Photo
+                    <input type="text" name="photo" size="18" value="{{ donnees.photo }}">
+                </label>
+                {% if donnees.photo is not empty %}
+                    <img src="{{ asset('assets/images/') }}{{ donnees.photo }}" style="width: 150px;" alt="image de {{ donnees.titre }}">
+                {% else %}
+                    <img src="{{ asset('assets/images/no_photo.jpeg') }}" style="width: 150px;" alt="pas de photo">
+                {% endif %}
+
+                {% if erreurs.photo is defined %}
+                    <small class="error">La photo n'existe pas dans le dossier 'assets/images/'</small>
+                {% endif %}
+
+                <input type="submit" name="validerForm" value="valider" />
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

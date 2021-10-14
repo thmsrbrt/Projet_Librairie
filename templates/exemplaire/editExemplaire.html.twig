@@ -1,0 +1,47 @@
+{% extends "layout.html.twig" %}
+
+{% block content %}
+    <div class="row" >
+        <form method="post" action="{{ path('exemplaire_validFormModifierExemplaire') }}">
+            <legend>Modifier un exemplaire</legend>
+            <fieldset>
+                {% for oeuvre in oeuvres %}
+                    <h4>
+                        Information sur l'oeuvre :
+                        Titre : <strong style="color:green">{{ oeuvre.titre }}</strong>,
+                        Auteur : <strong style="color:green">{{ oeuvre.nomAuteur }}</strong>,
+                        DateParution : <strong style="color:green">{{ oeuvre.dateParution | date('d-m-Y') }}</strong><br>
+                    </h4>
+                {% endfor %}
+
+                <input name="id" type="hidden" value="{{ exemplaire.id | default('') }}">
+                <input name="oeuvre_id" type="hidden" value="{{ exemplaire.oeuvre_id }}">
+
+                <p>Etat <br>
+                    <input type="radio" name="etat" value="NEUF" {% if exemplaire.etat is not defined or exemplaire.etat == 'NEUF' %} checked {% endif %}>
+                    <label>NEUF</label>
+                    <input type="radio" name="etat" value="BON" {% if exemplaire.etat is defined and exemplaire.etat == 'BON' %} checked {% endif %}>
+                    <label>BON</label>
+                    <input type="radio" name="etat" value="MOYEN" {% if exemplaire.etat is defined and exemplaire.etat == 'MOYEN' %} checked {% endif %}>
+                    <label>MOYEN</label>
+                    <input type="radio" name="etat" value="MAUVAIS" {% if exemplaire.etat is defined and exemplaire.etat == 'MAUVAIS' %} checked {% endif %}>
+                    <label>MAUVAIS</label>
+                </p>
+
+                <label>Date d'achat</label>
+                <input name="date_achat" type="text" value="{{ exemplaire.date_achat | default('')}}">
+                {% if erreurs.date_achat is defined %}
+                    <small class="error">{{ erreurs.date_achat }}</small>
+                {% endif %}
+
+                <label>Prix</label>
+                <input name="prix" type="text" value="{{ exemplaire.prix }}">
+                {% if erreurs.prix is defined %}
+                    <small class="error">{{ erreurs.prix }}</small>
+                {% endif %}
+
+                <input type="submit" name="validForm" value="Valider">
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}
